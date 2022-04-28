@@ -110,9 +110,9 @@
 	SLCY.ZDJS.startMove = Sprite_Battler.prototype.startMove;
 	Sprite_Battler.prototype.startMove = function(x, y, duration) {
 		if (BattleManager.isSpeedUp()){
-    		duration /= SLCY.ZDJS_Speed;
-    	}else{
-    		SLCY.ZDJS.startMove.call(this,x,y,duration);
-    	};
+    			duration /= SLCY.ZDJS_Speed;
+    		}else{
+    			SLCY.ZDJS.startMove.call(this,x,y,duration);
+    		};
 	};
 })();
