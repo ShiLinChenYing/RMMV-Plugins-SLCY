@@ -1,5 +1,5 @@
 /*:
- @plugindesc 升级恢复 版本1.00
+ @plugindesc 升级恢复 版本1.01
  @author 石林尘影
  
  @param LevelUpRecoverValues
@@ -18,6 +18,12 @@
  选择新增（值为-2）时，升级时恢复升级后增加的生命值和魔法值。
  自定义文本参数，升级时会恢复自定义的数值。
  自定义数值可以是负数，但若设为-1或-2，则与相应选项设定相同。
+
+ 插件指令:
+ setLevelUpRecoverValues -1       升级时恢复全部值
+ setLevelUpRecoverValues -2       升级时恢复升级后增加的值
+ setLevelUpRecoverValues 其它值    升级时会恢复自定义的值
+
  插件使用mit协议，没有特别的限制。
  */
 
@@ -25,16 +31,27 @@
 	Imported.SLCY_SJHF = true;
 	var SLCY = SLCY || {};
 	SLCY.SJHF = SLCY.SJHF || {};
-	SLCY.SJHF.version = 1.00;
+	SLCY.SJHF.version = 1.01;
 
 (function(){
 	//参数设置
 	SLCY.parameters = PluginManager.parameters('SLCY_SJHF');//代入参数的命名,与文件名一致。
-	SLCY.SJHF_LevelUpRecoverValues = JSON.parse(SLCY.parameters['LevelUpRecoverValues']);
+	SLCY.SJHF_LevelUpRecoverValues = Number(SLCY.parameters['LevelUpRecoverValues']);
+
+	//插件指令
+	SLCY.SJHF_Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
+    	Game_Interpreter.prototype.pluginCommand = function(command, args) {
+    		SLCY.SJHF_Game_Interpreter_pluginCommand.call(this, command, args);
+        	if(command === 'setLevelUpRecoverValues'){SLCY.SJHF_LevelUpRecoverValues = this.argsToNumber(args)};
+    	};
+
+	Game_Interpreter.prototype.argsToNumber = function(args) {
+		return Number(args);
+	};
 
 	//升级恢复
 	SLCY.SJHF.Game_Actor_prototype_levelUp = Game_Actor.prototype.levelUp;
-    	Game_Actor.prototype.levelUp = function() {
+   	Game_Actor.prototype.levelUp = function() {
 		SLCY.SJHF.Game_Actor_prototype_levelUp.call(this);
 		if(SLCY.SJHF_LevelUpRecoverValues === -1){
 			this._hp = this.mhp;
