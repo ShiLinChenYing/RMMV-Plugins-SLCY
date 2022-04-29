@@ -34,7 +34,7 @@
 
 	//升级恢复
 	SLCY.SJHF.Game_Actor_prototype_levelUp = Game_Actor.prototype.levelUp;
-    Game_Actor.prototype.levelUp = function() {
+    	Game_Actor.prototype.levelUp = function() {
 		SLCY.SJHF.Game_Actor_prototype_levelUp.call(this);
 		if(SLCY.SJHF_LevelUpRecoverValues === -1){
 			this._hp = this.mhp;
