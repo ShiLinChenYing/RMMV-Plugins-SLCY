@@ -29,7 +29,7 @@
  setLevelUpRecoverValues Game_Actor=$gameActors.actor(1); Game_Actor._level>=50?Game_Actor._level*2:0
 
  参考数据：
- Game_Interpreter: this._mapId = 0,this._eventId = 0等。
+ Game_Interpreter: this._mapId,this._eventId等。
  Game_Actor: _level,_exp,_hp,_mp,_actorId,_name,_nickname,_faceName,_classId,_damagePopup,_equips等。
  */
 
