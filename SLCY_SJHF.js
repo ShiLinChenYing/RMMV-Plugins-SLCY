@@ -46,25 +46,25 @@
 
 	//插件指令
 	SLCY.SJHF.Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
-    	Game_Interpreter.prototype.pluginCommand = function(command, args) {
-    		SLCY.SJHF.Game_Interpreter_pluginCommand.call(this, command, args);
-        	if(command === 'setLevelUpRecoverValues'){SLCY.SJHF_LevelUpRecoverValues = this.argsCalculate(args)};
-    	};
+	Game_Interpreter.prototype.pluginCommand = function(command, args) {
+		SLCY.SJHF.Game_Interpreter_pluginCommand.call(this, command, args);
+		if(command === 'setLevelUpRecoverValues'){SLCY.SJHF_LevelUpRecoverValues = this.argsCalculate(args)};
+	};
 
-    	Game_Interpreter.prototype.argsCalculate = function(args){
-    		var str = '';
-    		var length = args.length;
-    		for (var i = 0; i < length; ++i) {
-      			str += args[i] + ' ';
-    		}
-    		var argsString = str.trim(); 
-  		var result = eval(argsString);
-  		return Number(result);
+	Game_Interpreter.prototype.argsCalculate = function(args){
+		var str = '';
+		var length = args.length;
+		for (var i = 0; i < length; ++i) {
+			str += args[i] + ' ';
+		}
+		var argsString = str.trim(); 
+		var result = eval(argsString);
+		return Number(result);
 	};
 
 	//升级恢复
 	SLCY.SJHF.Game_Actor_prototype_levelUp = Game_Actor.prototype.levelUp;
-    	Game_Actor.prototype.levelUp = function() {
+	Game_Actor.prototype.levelUp = function() {
 		SLCY.SJHF.Game_Actor_prototype_levelUp.call(this);
 		if(SLCY.SJHF_LevelUpRecoverValues === -1){
 			this._hp = this.mhp;
